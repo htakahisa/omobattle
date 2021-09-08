@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes honhono/Taitoru.unity
+    guid: abebcc18b49db6c4eaeab3e068870fcf
+  - enabled: 1
+    path: Assets/Scenes honhono/opening.unity
+    guid: 496a0ccd01fee00499e59f52ba6f1a21
+  - enabled: 1
+    path: Assets/Scenes honhono/buttle.unity
+    guid: 502ce75b1cbed274b812d21ddc393be9
+  - enabled: 1
+    path: Assets/Scenes honhono/win.unity
+    guid: 74fd2a4249c69dc49afed929c2ffe35e
+  - enabled: 1
+    path: Assets/Scenes honhono/lose.unity
+    guid: 9c5771643def6564293f1677830b74d8
+  - enabled: 1
+    path: Assets/Scenes honhono/map.unity
+    guid: bcebc1bd36e52d04391db8df89ffbff9
+  - enabled: 1
+    path: Assets/Scenes honhono/map2.unity
+    guid: f4c21f1ae29a8c242a69abdc36ba7a36
+  - enabled: 1
+    path: Assets/Scenes honhono/map3.unity
+    guid: 166f1858c5bbf4b45911eb02d6f9d68c
+  - enabled: 1
+    path: Assets/Scenes honhono/syoppu.unity
+    guid: 61ddbf0d7feb8fd4cacec1d2072199a2
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi1.unity
+    guid: 2ca63884b761852468b78ca6a0cb5560
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi2.unity
+    guid: 6f874fa69a998fc439e47cfd8a416259
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi3.unity
+    guid: 7971bb4b511c1464c8247c5bf10f909a
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi4.unity
+    guid: 10cc4c7ba3bcf5f46bba7b239b2a6406
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi5.unity
+    guid: 22a69b17504777a4fba27f2341c4307b
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi6.unity
+    guid: c796445a745b66b43bafd91918653825
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi7.unity
+    guid: 81a528cd3e235cb40b38a9305e3cc845
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi8.unity
+    guid: 70edc0067e64de84fa9179de9a1a1d0d
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi9.unity
+    guid: 2ff2e8d994dc33741bdffa16a4f29cde
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi10.unity
+    guid: c02192821db5c2c4c95f16c381f5da8f
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi11.unity
+    guid: b0f6b1a3a7c773e4198409e5051897b8
+  - enabled: 0
+    path: Assets/Scenes honhono/sutegi12.unity
+    guid: 5b4b8335dc1b925448e0436582efebfa
+  - enabled: 1
+    path: Assets/Scenes honhono/hensei.unity
+    guid: 62aca991a4d691b4f8f158ef269adf87
+  - enabled: 1
+    path: Assets/Scenes honhono/mochimono.unity
+    guid: adbd13648d3cf1344afe12d2d7d2f87a
+  - enabled: 1
+    path: Assets/Scenes honhono/map4.unity
+    guid: 5c52ca45143ff8a4a8e31b09c092d4de
+  - enabled: 1
+    path: Assets/Scenes honhono/syoppu2.unity
+    guid: f3143ca190eb83348a1047c1a3e7b2e7
+  - enabled: 1
+    path: Assets/Scenes honhono/syoppu3.unity
+    guid: 6dcd12ffb4dd3a84a815fae884d98806
+  m_configObjects: {}
