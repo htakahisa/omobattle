@@ -29,17 +29,20 @@ public class OnlineChoose : MonoBehaviour
 
         foreach (string name in names) {
             if (name.Equals(gameObject.name)) {
-                Debug.Log(nameStr);
                 return;
             }
         }
 
-        if (nameStr != null) {
-            nameStr += ",";
+        if (nameStr == null || nameStr.Equals("")) {
+            
+            nameStr += gameObject.name;
+        } else {
+            nameStr += "," + gameObject.name;
         }
-        nameStr += gameObject.name;
+        
 
         PlayerPrefs.SetString("choose", nameStr);
+        PlayerPrefs.Save();
         Debug.Log(nameStr);
 
     }

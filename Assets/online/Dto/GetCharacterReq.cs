@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Waza {
-    INIT_CHANGE,
-    PUNCH,
-
-    CHANGE
-
+public class GetCharacterReq 
+{
+    public long characterId;
 }

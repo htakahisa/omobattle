@@ -26,7 +26,7 @@ public class ButtonEvent : MonoBehaviour
      * online対戦ボタン
      */
     public void online() {
-        PlayerPrefs.DeleteKey("choose");
+        
 
         SceneManager.LoadScene("onlineName");
     }
@@ -48,8 +48,8 @@ public class ButtonEvent : MonoBehaviour
         SceneManager.LoadScene("onlineChoose");
     }
 
-    public void battle() {
+    public void waitingRoom() {
 
-        SceneManager.LoadScene("onlineBattle");
+        SceneManager.LoadScene("WaitingRoom");
     }
 }

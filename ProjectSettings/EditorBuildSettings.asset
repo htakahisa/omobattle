@@ -87,6 +87,9 @@ EditorBuildSettings:
     path: Assets/online/onlineBattle.unity
     guid: f0d9592a3a2b6e84cbef56eed6d8ca4b
   - enabled: 1
+    path: Assets/online/WaitingRoom.unity
+    guid: 2294745689276e04c955281cd458d2ab
+  - enabled: 1
     path: Assets/online/onlineName.unity
     guid: ee4cf761b03149943b0d7342240d9d80
   - enabled: 1
