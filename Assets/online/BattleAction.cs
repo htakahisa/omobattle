@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Text;
+using System.Collections;
 
 public class BattleAction : MonoBehaviour
 {
@@ -10,19 +13,148 @@ public class BattleAction : MonoBehaviour
 
     private float time;
 
-    private float interval = 1f;
+    private float interval = 3f;
 
     private Text msg;
 
+
+
+    private string host = "http://192.168.11.58:20001";
+    private List<Actions> actionList = new List<Actions>();
+    public long selectedCharacterId = 0;
+    public GameObject[] wazaButtons = null;
+    public string wazaId;
 
     // Start is called before the first frame update
     void Start()
     {
         msg = GameObject.Find("msg").GetComponent<Text>();
+
+
+        actionList = GameObject.Find("battle").GetComponent<Battle>().actionList;
+        wazaButtons = GameObject.FindGameObjectsWithTag("wazas");
+        // 初回選択
+        selectedCharacterId = long.Parse(PlayerPrefs.GetString("choose").Split(',')[0]);
+
+
+
     }
 
-    // Update is called once per frame
+    private IEnumerator callApi() {
+
+        // ステータス取得
+        GetBattleResultReq getBattleResultReq = new GetBattleResultReq();
+        getBattleResultReq.roomId = PlayerPrefs.GetString("roomId");
+        getBattleResultReq.userId = PlayerPrefs.GetString("inputName");
+        string json = JsonUtility.ToJson(getBattleResultReq);
+
+
+        Debug.Log("BattleStatus: " + json);
+        string url = host + "/getBattleResultStatus";
+        // HEADERはHashtableで記述
+        Hashtable header = new Hashtable();
+        // jsonでリクエストを送るのへッダ例
+        header.Add("Content-Type", "application/json; charset=UTF-8");
+
+
+        string postJsonStr = json;
+        byte[] postBytes = Encoding.Default.GetBytes(postJsonStr);
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(postBytes);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+
+        Debug.Log(request.downloadHandler.text);
+
+        GetBattleStatusRes getBattleStatusRes = JsonUtility.FromJson<GetBattleStatusRes>(request.downloadHandler.text);
+
+
+        string status = getBattleStatusRes.getUserStatus(PlayerPrefs.GetString("inputName")).battleResultStatus;
+
+        // ステータスが WAIT なら何もしない
+        if (status.Equals("WAIT")) {
+            yield break;
+        }
+
+
+        //とうやま！頑張ってバトルできるようにするんや！
+        // わかったで!
+
+
+
+        if (status.Equals("INIT_CHANGE") && selectedCharacterId != 0) {
+            Debug.Log("call INIT_CHANGE");
+
+            // キャラクター情報取得(技設定など)
+            GetCharacterReq c = new GetCharacterReq();
+            c.characterId = selectedCharacterId;
+            StartCoroutine(getCharacter(JsonUtility.ToJson(c)));
+
+            // INIT_CHANGE 
+            BattleReq req = new BattleReq();
+            req.roomId = PlayerPrefs.GetString("roomId");
+            req.userId = PlayerPrefs.GetString("inputName");
+            req.waza = Waza.INIT_CHANGE.ToString();
+            req.changeCharacterId = selectedCharacterId;
+            StartCoroutine(battle(JsonUtility.ToJson(req)));
+            Debug.Log("INIT_CHANGE selectedCharacterId is " + selectedCharacterId);
+            selectedCharacterId = 0;
+
+        }
+
+        if (status.Equals("GET_RESULT")) {
+            GetBattleResultReq req = new GetBattleResultReq();
+            req.roomId = PlayerPrefs.GetString("roomId");
+            req.userId = PlayerPrefs.GetString("inputName");
+            StartCoroutine(getResult(JsonUtility.ToJson(req)));
+        }
+
+
+        if (status.Equals("COMMAND_INPUT") && this.wazaId != null) {
+            BattleReq req = new BattleReq();
+            req.roomId = PlayerPrefs.GetString("roomId");
+            req.userId = PlayerPrefs.GetString("inputName");
+            req.waza = wazaId;
+            req.changeCharacterId = selectedCharacterId;
+
+            StartCoroutine(battle(JsonUtility.ToJson(req)));
+        }
+
+
+            //if (actionList.Count > 0) {
+
+        //    Actions action = actionList[0];
+
+        //    action.doAction(action);
+
+        //    actionList.Remove(action);
+        //}
+    }
+
+
+
     void Update() {
+        time += Time.deltaTime;
+        if (time < interval) {
+            return;
+        }
+        time = 0;
+
+        // ステータス取得
+        StartCoroutine(callApi());
+
+
+
+
+
+
+    }
+
+
+    // Update is called once per frame
+    /*void Update() {
         time += Time.deltaTime;
         if (time < interval) {
             return;
@@ -114,7 +246,8 @@ public class BattleAction : MonoBehaviour
             GameObject.Find("battle").GetComponent<Battle>().showingResult = false;
         }
 
-    }
+    }*/
+
      public void setBattleRes(GetBattleResultRes res) {
 
 
@@ -182,5 +315,110 @@ public class BattleAction : MonoBehaviour
 
             return r;
         }
+    }
+
+
+
+    IEnumerator battle(string json) {
+
+        Debug.Log("BATTLE: " + json);
+        string url = host + "/battle";
+        // HEADERはHashtableで記述
+        Hashtable header = new Hashtable();
+        // jsonでリクエストを送るのへッダ例
+        header.Add("Content-Type", "application/json; charset=UTF-8");
+
+
+        string postJsonStr = json;
+        byte[] postBytes = Encoding.Default.GetBytes(postJsonStr);
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(postBytes);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+
+        Debug.Log(request.downloadHandler.text);
+
+        BattleRes battleRes = JsonUtility.FromJson<BattleRes>(request.downloadHandler.text);
+        this.wazaId = null;
+    }
+
+
+    IEnumerator getResult(string json) {
+        Debug.Log("Resutl: " + json);
+        string url = host + "/getResult";
+        // HEADERはHashtableで記述
+        Hashtable header = new Hashtable();
+        // jsonでリクエストを送るのへッダ例
+        header.Add("Content-Type", "application/json; charset=UTF-8");
+
+
+        string postJsonStr = json;
+        byte[] postBytes = Encoding.Default.GetBytes(postJsonStr);
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(postBytes);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+
+        Debug.Log(request.downloadHandler.text);
+
+        GetBattleResultRes getBattleResultRes = JsonUtility.FromJson<GetBattleResultRes>(request.downloadHandler.text);
+
+        // バトル結果をactionList に詰めて表示する
+
+        foreach(GetBattleResultRes.BattleResult r in getBattleResultRes.results) {
+            List<Actions> addList = ActionFactory.actions(r);
+            foreach(Actions a in addList) {
+                actionList.Add(a);
+            }
+        }
+
+
+        //if (!getBattleResultRes.battleResultId.Equals(this.battleResultId)) {
+        //    BattleAction ba = GameObject.Find("battleAction").GetComponent<BattleAction>();
+        //    ba.setBattleRes(getBattleResultRes);
+        //    this.battleResultId = getBattleResultRes.battleResultId;
+        //}
+    }
+
+    IEnumerator getCharacter(string json) {
+        Debug.Log("Character: " + json);
+        string url = host + "/getCharacter";
+        // HEADERはHashtableで記述
+        Hashtable header = new Hashtable();
+        // jsonでリクエストを送るのへッダ例
+        header.Add("Content-Type", "application/json; charset=UTF-8");
+
+
+        string postJsonStr = json;
+        byte[] postBytes = Encoding.Default.GetBytes(postJsonStr);
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(postBytes);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+
+        Debug.Log(request.downloadHandler.text);
+
+        GetCharacterRes getCharacterRes = JsonUtility.FromJson<GetCharacterRes>(request.downloadHandler.text);
+
+
+        foreach (GameObject w in wazaButtons) {
+            w.SetActive(true);
+        }
+
+        wazaButtons[0].GetComponentInChildren<Text>().text = getCharacterRes.wazaName1;
+        wazaButtons[1].GetComponentInChildren<Text>().text = getCharacterRes.wazaName2;
+        wazaButtons[2].GetComponentInChildren<Text>().text = getCharacterRes.wazaName3;
+        wazaButtons[3].GetComponentInChildren<Text>().text = getCharacterRes.wazaName4;
+        wazaButtons[0].GetComponent<WazaButton>().setWaza(getCharacterRes.waza1);
+        wazaButtons[1].GetComponent<WazaButton>().setWaza(getCharacterRes.waza2);
+        wazaButtons[2].GetComponent<WazaButton>().setWaza(getCharacterRes.waza3);
+        wazaButtons[3].GetComponent<WazaButton>().setWaza(getCharacterRes.waza4);
+
     }
 }

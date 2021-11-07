@@ -40,6 +40,8 @@ public class Battle : MonoBehaviour
     private string host = "http://192.168.11.58:20001";
 
 
+    public List<Actions> actionList = new List<Actions>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,8 @@ public class Battle : MonoBehaviour
 
     }
 
+
+    /*
     void Update() {
 
 
@@ -175,9 +179,22 @@ public class Battle : MonoBehaviour
 
 
 
+}
+*/
+
+
+    void Update() {
+        
+        if (actionList.Count > 0) {
+            Actions action = actionList[0];
+
+            bool finished = action.doAction();
+
+            if (finished) {
+                actionList.Remove(action);
+            }
+        }
     }
-
-
 
 
 

@@ -36,8 +36,8 @@ public class WazaButton : MonoBehaviour
 
     public void select() {
 
-        Battle battle = GameObject.Find("battle").GetComponent<Battle>();
-        battle.waza = this.wazaId;
+        BattleAction ba = GameObject.Find("battleAction").GetComponent<BattleAction>();
+        ba.wazaId = this.wazaId;
 
     }
 

@@ -9,7 +9,7 @@ public class ChangeCharacterButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 0f, 0f, 0f); // 透明
+        //gameObject.GetComponent<UnityEngine.UI.Image>().color = new Color(0f, 0f, 0f, 0f); // 透明
 
     }
 
@@ -26,7 +26,7 @@ public class ChangeCharacterButton : MonoBehaviour
         if (characterId == "" || characterId == null || characterId == "0") {
             return;
         }
-        Battle battle = GameObject.Find("battle").GetComponent<Battle>();
+        BattleAction battle = GameObject.Find("battleAction").GetComponent<BattleAction>();
 
 
         string[] characters = PlayerPrefs.GetString("choose").Split(',');
