@@ -31,8 +31,9 @@ public class XP : MonoBehaviour
             status.okane = status.okane + (int)huetabun;
             huetabun = 0;
         }
-        timeText.text = status.okane + " 円";
+        timeText.text = status.okane + "GEM";
 
     }
+   
    
 }

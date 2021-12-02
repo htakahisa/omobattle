@@ -75,7 +75,7 @@ public class Status : MonoBehaviour
         kattaList.Add("uzaou");
         kattaList.Add("syensinEX");
         kattaList.Add("itadori");
-        kattaList.Add("babiron");
+      
        
 
     }

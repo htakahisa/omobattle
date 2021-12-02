@@ -37,7 +37,7 @@ public class Battle : MonoBehaviour
 
     public bool beatOp;
 
-    private string host = "http://192.168.11.58:20001";
+    public static string host = "http://192.168.11.58:20001";
 
 
     public List<Actions> actionList = new List<Actions>();
@@ -287,47 +287,10 @@ public class Battle : MonoBehaviour
         getBattleResultRes = JsonUtility.FromJson<GetBattleResultRes>(request.downloadHandler.text);
         if (!getBattleResultRes.battleResultId.Equals(this.battleResultId)) {
             BattleAction ba = GameObject.Find("battleAction").GetComponent<BattleAction>();
-            ba.setBattleRes(getBattleResultRes);
+            //ba.setBattleRes(getBattleResultRes);
             this.battleResultId = getBattleResultRes.battleResultId;
         }
     }
 
 
-    IEnumerator getCharacter(string json) {
-        Debug.Log("Character: " + json);
-        string url = host + "/getCharacter";
-        // HEADERはHashtableで記述
-        Hashtable header = new Hashtable();
-        // jsonでリクエストを送るのへッダ例
-        header.Add("Content-Type", "application/json; charset=UTF-8");
-
-
-        string postJsonStr = json;
-        byte[] postBytes = Encoding.Default.GetBytes(postJsonStr);
-
-        UnityWebRequest request = new UnityWebRequest(url, "POST");
-        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(postBytes);
-        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-        yield return request.SendWebRequest();
-
-        Debug.Log(request.downloadHandler.text);
-
-        getCharacterRes = JsonUtility.FromJson<GetCharacterRes>(request.downloadHandler.text);
-
-
-        foreach (GameObject w in wazaButtons) {
-            w.SetActive(true);
-        }
-
-        wazaButtons[0].GetComponentInChildren<Text>().text = getCharacterRes.wazaName1;
-        wazaButtons[1].GetComponentInChildren<Text>().text = getCharacterRes.wazaName2;
-        wazaButtons[2].GetComponentInChildren<Text>().text = getCharacterRes.wazaName3;
-        wazaButtons[3].GetComponentInChildren<Text>().text = getCharacterRes.wazaName4;
-        wazaButtons[0].GetComponent<WazaButton>().setWaza(getCharacterRes.waza1);
-        wazaButtons[1].GetComponent<WazaButton>().setWaza(getCharacterRes.waza2);
-        wazaButtons[2].GetComponent<WazaButton>().setWaza(getCharacterRes.waza3);
-        wazaButtons[3].GetComponent<WazaButton>().setWaza(getCharacterRes.waza4);
-
-    }
 }

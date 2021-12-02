@@ -69,6 +69,7 @@ public enum JumonType
     BOUHUU,　//　暴風
     HOROBI, //　滅び
     HORORORO, // ホロロロ
+    SECRETTHEPERFECT, //　シークレット・ザ・パーフェクト
 
 
     UZA,　//　うざ
@@ -131,8 +132,8 @@ public class JumonTypeMapper {
         dic.Add(JumonType.DORAGONASUKU, new JumonInfo(3530, KougekiType.KOUGEKI, Type.AKU, 0, "ドラゴンアスク", "  わー！"));
         dic.Add(JumonType.DENSETUNOIKAZUTI, new JumonInfo(5000, KougekiType.KOUGEKI, Type.DENSETU, 0, "伝説の雷", " 相手は伝説の雷をくらった！「神の力は最強なのだ！行け！ちなみにまだ50%くらいしか力出してないよ\n\n\n\nby神様"));
         dic.Add(JumonType.KAMINOKAMI, new JumonInfo(4030, KougekiType.KOUGEKI, Type.DENSETU, 0, "神の髪", " 神の髪は武器として使える！"));
-        dic.Add(JumonType.DENSETUNOSINIGAMINOKAMA, new JumonInfo(10000, KougekiType.KOUGEKI, Type.AKU, 0, "伝説の死神の鎌", " 伝説の死神の鎌が相手の魂を奪い、相手は大ダメージ！"));
-        dic.Add(JumonType.SOUZOUSOSITEHAKAISOSITEIKAZUTI, new JumonInfo(4700, KougekiType.KOUGEKI, Type.HONOO, 0, "創造そして破壊そして雷", "相手はもの凄いパワーでダメージを受けたあとに雷を受けてとにかくやばい！"));
+        dic.Add(JumonType.DENSETUNOSINIGAMINOKAMA, new JumonInfo(10000000, KougekiType.KOUGEKI, Type.AKU, 0, "伝説の死神の鎌", " 伝説の死神の鎌が相手の魂を奪い、相手は大ダメージ！"));
+        dic.Add(JumonType.SOUZOUSOSITEHAKAISOSITEIKAZUTI, new JumonInfo(8080, KougekiType.KOUGEKI, Type.HONOO, 0, "創造そして破壊そして雷", "相手はもの凄いパワーでダメージを受けたあとに雷を受けてとにかくやばい！"));
         dic.Add(JumonType.HOWAKKUZUTI, new JumonInfo(4730, KougekiType.KOUGEKI, Type.HONOO, 0, "ホワックズチ", " 神様とフェンシルとアクザードの三位一体だー！"));
         dic.Add(JumonType.HAGE, new JumonInfo(7831, KougekiType.KOUGEKI, Type.HIKARI, 0, "はげ！", " はげ代表とうやまの髪無し最強頭突き！髪がないことによりほかの人より３．５倍威力が高い！！ちなみに神様の技より威力高いらしいよ。(嘘）（3831）"));
         dic.Add(JumonType.SOUZOUSOSITEHAKAISOSITEIKAZUTIEX, new JumonInfo(3829, KougekiType.KOUGEKI, Type.HONOO, 0, "創造そして破壊そして雷EX", "相手はもの凄いパワーでダメージを受けたあとに雷の進化バージョンでとにかくやばい！"));
@@ -141,7 +142,7 @@ public class JumonTypeMapper {
         dic.Add(JumonType.TABERU, new JumonInfo(3330, KougekiType.KOUGEKI, Type.AKU, 0, "食べる", "相手を食べた！相手は三分の一がなくなった！"));
         dic.Add(JumonType.OMOIIPPATU, new JumonInfo(5830, KougekiType.KOUGEKI, Type.AKU, -1, "重い一発", "  重い一発を食らい、大ダメージ！！"));
         dic.Add(JumonType.KENWOHURIMAWASU, new JumonInfo(3530, KougekiType.KOUGEKI, Type.AKU, 0, "剣を振り回す", "  カミ○ルギのように剣を振り回す！！"));
-        dic.Add(JumonType.KAGEUTI, new JumonInfo(1930, KougekiType.KOUGEKI, Type.AKU, 2, "影うち", "  相手の背後に回って影うち！相手はいきなり後ろから攻撃されってびっくり！！"));
+        dic.Add(JumonType.KAGEUTI, new JumonInfo(3000, KougekiType.KOUGEKI, Type.AKU, 2, "影うち", "  相手の背後に回って影うち！相手はいきなり後ろから攻撃されってびっくり！！"));
         dic.Add(JumonType.ANSINSISUTEMU, new JumonInfo(3630, KougekiType.KOUGEKI, Type.DENKI, 0, "安心システム", "  安心システムに引っかかった泥棒が逃げた先にいた相手は泥棒にぶつかって倒れた！"));
         dic.Add(JumonType.ZISIN, new JumonInfo(3930, KougekiType.KOUGEKI, Type.ZIMEN, 0, "地震", "  地震で揺れて相手は転んだ！"));
         dic.Add(JumonType.DAIKONWONUKU, new JumonInfo(3930, KougekiType.KOUGEKI, Type.ZIMEN, 0, "大根を抜く", "  抜いてる間に地震で揺れて相手は転んだ！"));
@@ -157,9 +158,10 @@ public class JumonTypeMapper {
         dic.Add(JumonType.EIRIANSUTORAIKUex, new JumonInfo(4830, KougekiType.KOUGEKI, Type.HIKARI, 2, "エイリアンストライクex", "  相手はエイリアンがものすごいスピードで突っ込んできた衝撃で気絶した"));
         dic.Add(JumonType.PURIZUMASAFAIAex, new JumonInfo(5300, KougekiType.KOUGEKI, Type.DENKI, 0, "プリズマサファイアex", "  冷静に考えて電気技の威力5300は犯罪"));
         dic.Add(JumonType.KYOURANSYOKUZI, new JumonInfo(4730, KougekiType.KOUGEKI, Type.AKU, 0, "狂乱食事", " 食事すらも狂っている！！"));
-        dic.Add(JumonType.BOUHUU, new JumonInfo(4900, KougekiType.KOUGEKI, Type.HIKOU, 0, "暴風", "相手は暴風により吹き飛ばされた！"));
+        dic.Add(JumonType.BOUHUU, new JumonInfo(7500, KougekiType.KOUGEKI, Type.HIKOU, 0, "暴風", "相手は暴風により吹き飛ばされた！"));
         dic.Add(JumonType.HOROBI, new JumonInfo(999999, KougekiType.KOUGEKI, Type.AKU, 0, "滅び", "3wefiuw98erd8uhweusfducjewusdfoduwe4w:fl4ptw4;f.,ge:t;.fg;@psokrpoeas90wor40-rofl:w;fpr@w;flsce@sprlfp@wpslfop@psd;lo@phdfcwqiaushd87weiusyfch"));
         dic.Add(JumonType.HORORORO, new JumonInfo(999999, KougekiType.KOUGEKI, Type.AKU, 0, "ホロロロ", " 地球ごと焼き尽くして、自分と相手に爆発的なダメージを与えた！！"));
+        dic.Add(JumonType.SECRETTHEPERFECT, new JumonInfo(9000, KougekiType.KOUGEKI, Type.DENSETU, 0, "シークレット・ザ・パーフェクト", " ヴァリオンは、力を解禁し、パーフェクトになった！"));
 
         dic.Add(JumonType.FAIYAZAREKUSSU, new JumonInfo(2, KougekiType.KOUGEKI_UP, Type.HONOO, 0, "ファイヤーザレックス", "  炎をあえて自分にあてて燃え上がり、王の舞をして攻撃力を爆上げ！"));
         dic.Add(JumonType.FAIYAZAREKUSSUex, new JumonInfo(2.5f, KougekiType.KOUGEKI_UP, Type.HONOO, 0, "ファイヤーザレックスex", "  炎をあえて自分にあてて燃え上がり、王の舞をして攻撃力を爆上げ！しかもexだからたぶん何かしら変化があると思われる"));

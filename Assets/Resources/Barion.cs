@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 public class Barion : Charactor {
 
-    private int hp = 18700;
+    private int hp = 38500;
     private int kougeki = 13500;
     private int speed = 1000;
     private List<JumonType> jumonTypeList = new List<JumonType>();
     private string name = "ヴァリオン";
-    private Type type = Type.HIKOU;
+    private Type type = Type.DENSETU;
 
     private int bakenokawa = 1;
 
@@ -19,7 +19,7 @@ public class Barion : Charactor {
     void Start() {
 
         jumonTypeList.Add(JumonType.HORORORO);
-        jumonTypeList.Add(JumonType.BOUHUU);
+        jumonTypeList.Add(JumonType.SECRETTHEPERFECT);
         jumonTypeList.Add(JumonType.RUGAN);
         jumonTypeList.Add(JumonType.SPAMD);
 
@@ -30,7 +30,8 @@ public class Barion : Charactor {
 
 
         if (this.bakenokawa > 0) {
-            msg(name + " の化けの皮が身代わりになり、化けの皮がはがれた!");
+            msg(name + " の化けの皮が身代わりになり、攻撃力が上がった！");
+            this.kougeki += 10000;
 
             this.bakenokawa--;
             return false;

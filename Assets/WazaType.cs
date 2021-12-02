@@ -36,7 +36,7 @@ public class WazaType
         float rate = 1;
 
         if (goodList.ContainsKey(fromType) && goodList[fromType].Contains(toType)) {
-            rate += 0.5f;
+            rate += 1f;
         }
 
         if (badList.ContainsKey(fromType) && badList[fromType].Contains(toType)) {

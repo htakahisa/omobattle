@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class WaigingRoom : MonoBehaviour
 {
 
-    private string host = "http://192.168.11.58:20001";
 
     private CreateRoomRes createRoomRes;
 
@@ -57,7 +56,7 @@ public class WaigingRoom : MonoBehaviour
 
     IEnumerator createRoom(string json) {
         Debug.Log(json);
-        string url = host + "/createRoom";
+        string url = Battle.host + "/createRoom";
 
         // HEADERはHashtableで記述
         Hashtable header = new Hashtable();

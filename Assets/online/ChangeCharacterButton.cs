@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class ChangeCharacterButton : MonoBehaviour
 {
@@ -33,9 +35,8 @@ public class ChangeCharacterButton : MonoBehaviour
 
         battle.selectedCharacterId = long.Parse(characters[(long.Parse(characterId) - 1)]);
 
-        //foreach (GameObject c in GameObject.FindGameObjectsWithTag("change")) {
-        //    c.SetActive(false);
-        //}
+
+
 
     }
 

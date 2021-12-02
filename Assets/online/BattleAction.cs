@@ -19,10 +19,11 @@ public class BattleAction : MonoBehaviour
 
 
 
-    private string host = "http://192.168.11.58:20001";
     private List<Actions> actionList = new List<Actions>();
     public long selectedCharacterId = 0;
     public GameObject[] wazaButtons = null;
+
+    public GameObject[] changeButtons = null;
     public string wazaId;
 
     // Start is called before the first frame update
@@ -36,7 +37,10 @@ public class BattleAction : MonoBehaviour
         // 初回選択
         selectedCharacterId = long.Parse(PlayerPrefs.GetString("choose").Split(',')[0]);
 
+        changeButtons = GameObject.FindGameObjectsWithTag("change");
 
+        Images images = GameObject.Find("Images").GetComponent<Images>();
+        images.setSprite();
 
     }
 
@@ -50,7 +54,7 @@ public class BattleAction : MonoBehaviour
 
 
         Debug.Log("BattleStatus: " + json);
-        string url = host + "/getBattleResultStatus";
+        string url = Battle.host + "/getBattleResultStatus";
         // HEADERはHashtableで記述
         Hashtable header = new Hashtable();
         // jsonでリクエストを送るのへッダ例
@@ -81,7 +85,27 @@ public class BattleAction : MonoBehaviour
 
         //とうやま！頑張ってバトルできるようにするんや！
         // わかったで!
-
+        if (actionList.Count == 0) {
+            switch (status) {
+                case "INIT_CHANGE":
+                    this.showChangeButton(true);
+                    this.showWazaButton(false);
+                    break;
+                case "GET_RESULT":
+                    this.showChangeButton(false);
+                    this.showWazaButton(false);
+                    break;
+                case "COMMAND_INPUT":
+                    this.showChangeButton(false);
+                    this.showWazaButton(true);
+                    actionList.Add(new MessageAction("キャラクターを選択してください。"));
+                    break;
+                default:
+                    this.showChangeButton(true);
+                    this.showWazaButton(false);
+                    break;
+            }
+        }
 
 
         if (status.Equals("INIT_CHANGE") && selectedCharacterId != 0) {
@@ -102,6 +126,9 @@ public class BattleAction : MonoBehaviour
             Debug.Log("INIT_CHANGE selectedCharacterId is " + selectedCharacterId);
             selectedCharacterId = 0;
 
+            actionList.Add(new MessageAction("通信中・・・"));
+
+
         }
 
         if (status.Equals("GET_RESULT")) {
@@ -109,6 +136,8 @@ public class BattleAction : MonoBehaviour
             req.roomId = PlayerPrefs.GetString("roomId");
             req.userId = PlayerPrefs.GetString("inputName");
             StartCoroutine(getResult(JsonUtility.ToJson(req)));
+
+
         }
 
 
@@ -120,6 +149,9 @@ public class BattleAction : MonoBehaviour
             req.changeCharacterId = selectedCharacterId;
 
             StartCoroutine(battle(JsonUtility.ToJson(req)));
+
+            actionList.Add(new MessageAction("通信中・・・"));
+
         }
 
 
@@ -152,6 +184,24 @@ public class BattleAction : MonoBehaviour
 
     }
 
+
+    public void showChangeButton(bool show) {
+        foreach (GameObject go in changeButtons) {
+            go.SetActive(show);
+        }
+    }
+
+    public void toggleChangeButton() {
+        foreach (GameObject go in changeButtons) {
+            go.SetActive(!go.activeSelf);
+        }
+    }
+
+    public void showWazaButton(bool show) {
+        foreach (GameObject go in wazaButtons) {
+            go.SetActive(show);
+        }
+    }
 
     // Update is called once per frame
     /*void Update() {
@@ -248,47 +298,47 @@ public class BattleAction : MonoBehaviour
 
     }*/
 
-     public void setBattleRes(GetBattleResultRes res) {
+    //public void setBattleRes(GetBattleResultRes res) {
 
 
-        this.res = res;
+    //    this.res = res;
 
-        foreach (GetBattleResultRes.BattleResult r in res.results) {
-            if (r.change != null) {
-                this.addResult(ShowResult.of(r.change, r.change.message1, 0f));
-                this.addResult(ShowResult.of(r.change, r.change.action, 2.5f));
-                this.addResult(ShowResult.of(r.change, r.change.message1, 1.5f));
-            }
+    //    foreach (GetBattleResultRes.BattleResult r in res.results) {
+    //        if (r.change != null) {
+    //            this.addResult(ShowResult.of(r.change, r.change.message1, 0f));
+    //            this.addResult(ShowResult.of(r.change, r.change.action, 2.5f));
+    //            this.addResult(ShowResult.of(r.change, r.change.message1, 1.5f));
+    //        }
 
-            if (r.inTheBattle != null) {
-                this.addResult(ShowResult.of(r.inTheBattle, r.inTheBattle.message1, 0f));
-                this.addResult(ShowResult.of(r.inTheBattle, r.inTheBattle.action, 2.5f));
-                this.addResult(ShowResult.of(r.inTheBattle, r.inTheBattle.message1, 1.5f));
-            }
+    //        if (r.inTheBattle != null) {
+    //            this.addResult(ShowResult.of(r.inTheBattle, r.inTheBattle.message1, 0f));
+    //            this.addResult(ShowResult.of(r.inTheBattle, r.inTheBattle.action, 2.5f));
+    //            this.addResult(ShowResult.of(r.inTheBattle, r.inTheBattle.message1, 1.5f));
+    //        }
 
-            if (r.beforeAttack != null) {
-                this.addResult(ShowResult.of(r.beforeAttack, r.beforeAttack.message1, 0f));
-                this.addResult(ShowResult.of(r.beforeAttack, r.beforeAttack.action, 2.5f));
-                this.addResult(ShowResult.of(r.beforeAttack, r.beforeAttack.message1, 1.5f));
-            }
+    //        if (r.beforeAttack != null) {
+    //            this.addResult(ShowResult.of(r.beforeAttack, r.beforeAttack.message1, 0f));
+    //            this.addResult(ShowResult.of(r.beforeAttack, r.beforeAttack.action, 2.5f));
+    //            this.addResult(ShowResult.of(r.beforeAttack, r.beforeAttack.message1, 1.5f));
+    //        }
 
-            if (r.inAttack != null) {
-                this.addResult(ShowResult.of(r.inAttack, r.inAttack.message1, 0f));
-                this.addResult(ShowResult.of(r.inAttack, r.inAttack.action, 2.5f));
-                this.addResult(ShowResult.of(r.inAttack, r.inAttack.message1, 1.5f));
-            }
-            if (r.afterAttack != null) {
-                this.addResult(ShowResult.of(r.afterAttack, r.afterAttack.message1, 0f));
-                this.addResult(ShowResult.of(r.afterAttack, r.afterAttack.action, 2.5f));
-                this.addResult(ShowResult.of(r.afterAttack, r.afterAttack.message1, 1.5f));
-            }
-            if (r.endTheBattle != null) {
-                this.addResult(ShowResult.of(r.endTheBattle, r.endTheBattle.message1, 0f));
-                this.addResult(ShowResult.of(r.endTheBattle, r.endTheBattle.action, 2.5f));
-                this.addResult(ShowResult.of(r.endTheBattle, r.endTheBattle.message1, 1.5f));
-            }
-        }
-    }
+    //        if (r.inAttack != null) {
+    //            this.addResult(ShowResult.of(r.inAttack, r.inAttack.message1, 0f));
+    //            this.addResult(ShowResult.of(r.inAttack, r.inAttack.action, 2.5f));
+    //            this.addResult(ShowResult.of(r.inAttack, r.inAttack.message1, 1.5f));
+    //        }
+    //        if (r.afterAttack != null) {
+    //            this.addResult(ShowResult.of(r.afterAttack, r.afterAttack.message1, 0f));
+    //            this.addResult(ShowResult.of(r.afterAttack, r.afterAttack.action, 2.5f));
+    //            this.addResult(ShowResult.of(r.afterAttack, r.afterAttack.message1, 1.5f));
+    //        }
+    //        if (r.endTheBattle != null) {
+    //            this.addResult(ShowResult.of(r.endTheBattle, r.endTheBattle.message1, 0f));
+    //            this.addResult(ShowResult.of(r.endTheBattle, r.endTheBattle.action, 2.5f));
+    //            this.addResult(ShowResult.of(r.endTheBattle, r.endTheBattle.message1, 1.5f));
+    //        }
+    //    }
+    //}
 
     private void addResult(ShowResult r) {
         if (r == null) {
@@ -322,7 +372,7 @@ public class BattleAction : MonoBehaviour
     IEnumerator battle(string json) {
 
         Debug.Log("BATTLE: " + json);
-        string url = host + "/battle";
+        string url = Battle.host + "/battle";
         // HEADERはHashtableで記述
         Hashtable header = new Hashtable();
         // jsonでリクエストを送るのへッダ例
@@ -347,7 +397,7 @@ public class BattleAction : MonoBehaviour
 
     IEnumerator getResult(string json) {
         Debug.Log("Resutl: " + json);
-        string url = host + "/getResult";
+        string url = Battle.host + "/getResult";
         // HEADERはHashtableで記述
         Hashtable header = new Hashtable();
         // jsonでリクエストを送るのへッダ例
@@ -374,8 +424,10 @@ public class BattleAction : MonoBehaviour
             foreach(Actions a in addList) {
                 actionList.Add(a);
             }
-        }
 
+            
+        }
+        actionList.Add(new MessageAction("コマンドを選択してください。"));
 
         //if (!getBattleResultRes.battleResultId.Equals(this.battleResultId)) {
         //    BattleAction ba = GameObject.Find("battleAction").GetComponent<BattleAction>();
@@ -386,7 +438,7 @@ public class BattleAction : MonoBehaviour
 
     IEnumerator getCharacter(string json) {
         Debug.Log("Character: " + json);
-        string url = host + "/getCharacter";
+        string url = Battle.host + "/getCharacter";
         // HEADERはHashtableで記述
         Hashtable header = new Hashtable();
         // jsonでリクエストを送るのへッダ例

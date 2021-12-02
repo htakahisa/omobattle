@@ -15,7 +15,7 @@ PlayerSettings:
   companyName: DefaultCompany
   productName: neancodawisewmseo
   defaultCursor: {fileID: 2800000, guid: b1e0472bc36646247a7d6c071114e1de, type: 3}
-  cursorHotspot: {x: 0, y: 0}
+  cursorHotspot: {x: 10, y: 10}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
+  bundleVersion: 1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -267,7 +267,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 145fa849b98ead54dbbf53e426493dd4, type: 3}
+      m_Icon: {fileID: 2800000, guid: 5e63df71e5355ab49bc96ee6e4ce08a4, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
