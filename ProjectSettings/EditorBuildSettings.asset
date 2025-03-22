@@ -38,40 +38,40 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes honhono/syoppu.unity
     guid: 61ddbf0d7feb8fd4cacec1d2072199a2
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi1.unity
     guid: 2ca63884b761852468b78ca6a0cb5560
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi2.unity
     guid: 6f874fa69a998fc439e47cfd8a416259
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi3.unity
     guid: 7971bb4b511c1464c8247c5bf10f909a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi4.unity
     guid: 10cc4c7ba3bcf5f46bba7b239b2a6406
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi5.unity
     guid: 22a69b17504777a4fba27f2341c4307b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi6.unity
     guid: c796445a745b66b43bafd91918653825
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi7.unity
     guid: 81a528cd3e235cb40b38a9305e3cc845
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi8.unity
     guid: 70edc0067e64de84fa9179de9a1a1d0d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi9.unity
     guid: 2ff2e8d994dc33741bdffa16a4f29cde
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi10.unity
     guid: c02192821db5c2c4c95f16c381f5da8f
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi11.unity
     guid: b0f6b1a3a7c773e4198409e5051897b8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes honhono/sutegi12.unity
     guid: 5b4b8335dc1b925448e0436582efebfa
   - enabled: 1
